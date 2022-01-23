@@ -6,7 +6,7 @@
 		"node": "14.x"
 	},
 	"devDependencies": {
-		"@types/node": "^8.0.29",
+		"@types/node": "^8.10.66",
 		"ts-node": "^3.3.0",
 		"typescript": "^3.3.3333"
 	},
