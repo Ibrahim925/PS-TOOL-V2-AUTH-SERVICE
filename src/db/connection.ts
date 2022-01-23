@@ -2,8 +2,7 @@ import "reflect-metadata";
 import { createConnection, Connection } from "typeorm";
 import "dotenv/config";
 
-let connection: Connection;
-createConnection({
+export default createConnection({
 	type: "mysql",
 	host: "us-cdbr-east-05.cleardb.net",
 	port: 3306,
@@ -17,14 +16,4 @@ createConnection({
 		migrationsDir: "src/db/migration",
 		subscribersDir: "src/db/subscriber",
 	},
-})
-	.then((returnedConnection: Connection) => {
-		connection = returnedConnection;
-		console.log(returnedConnection);
-	})
-	.catch((error) => {
-		console.log("____________________________ERROR:", error);
-	});
-
-console.log(connection);
-export default connection;
+});
