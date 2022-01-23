@@ -5,6 +5,7 @@ export interface CustomRequest<T> extends Request {
 	body: T;
 }
 
+// Errors sent to user
 export interface Error {
 	message: string;
 	location: string;

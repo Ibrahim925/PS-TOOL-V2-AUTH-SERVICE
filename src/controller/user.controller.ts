@@ -8,6 +8,18 @@ import {
 } from "../helpers/emailValidation";
 import * as bcrypt from "bcryptjs";
 import { uuid } from "uuidv4";
+import * as nodemailer from "nodemailer";
+import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
+import "dotenv/config";
+
+const transporter: nodemailer.Transporter<SentMessageInfo> =
+	nodemailer.createTransport({
+		host: "Gmail",
+		auth: {
+			user: process.env.email,
+			pass: process.env.password,
+		},
+	});
 
 interface CreateAdminRequest {
 	userEmail: string;
@@ -75,6 +87,13 @@ export const create_admin = async (
 	newAdmin.userProject = null;
 	newAdmin.userType = "ADMIN";
 	await connection.manager.save(newAdmin);
+
+	await transporter.sendMail({
+		from: process.env.email,
+		to: process.env.email,
+		subject: "LogiSense Account Creation",
+		text: `An account was created with this email. Your password is ${userPassword}`,
+	});
 
 	res.send("Admin Successfully Created");
 };
