@@ -7,10 +7,10 @@ import {
 	validateLogiSenseEmail,
 } from "../helpers/emailValidation";
 import * as bcrypt from "bcryptjs";
+import { uuid } from "uuidv4";
 
 interface CreateAdminRequest {
 	userEmail: string;
-	userPassword: string;
 }
 
 // Used by POST /user/
@@ -18,7 +18,7 @@ export const create_admin = async (
 	req: CustomRequest<CreateAdminRequest>,
 	res: Response
 ): Promise<any> => {
-	const { userEmail, userPassword } = req.body;
+	const { userEmail } = req.body;
 
 	let errors: Errors;
 
@@ -64,6 +64,7 @@ export const create_admin = async (
 	}
 
 	// Encrypt password
+	const userPassword: string = uuid();
 	const salt = await bcrypt.genSalt(10);
 	const hashedPassword = await bcrypt.hash(userPassword, salt);
 
@@ -75,5 +76,5 @@ export const create_admin = async (
 	newAdmin.userType = "ADMIN";
 	await connection.manager.save(newAdmin);
 
-	res.json(newAdmin);
+	res.send("Admin Successfully Created");
 };
