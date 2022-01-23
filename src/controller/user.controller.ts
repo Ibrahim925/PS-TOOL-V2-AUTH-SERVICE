@@ -21,4 +21,6 @@ export const create_user = async (
 	newAdmin.userProject = null;
 	newAdmin.userType = "ADMIN";
 	await connection.manager.save(newAdmin);
+
+	res.send("succcess");
 };
