@@ -1,7 +1,12 @@
 import { User } from "../db/entity/User";
 import { connection } from "../db/connection";
 import { Response } from "express";
-import { CustomRequest } from "../types";
+import { CustomRequest, Errors } from "../types";
+import {
+	validateEmail,
+	validateLogiSenseEmail,
+} from "../helpers/emailValidation";
+import * as bcrypt from "bcryptjs";
 
 interface CreateAdminRequest {
 	userEmail: string;
@@ -15,18 +20,60 @@ export const create_admin = async (
 ): Promise<any> => {
 	const { userEmail, userPassword } = req.body;
 
+	let errors: Errors;
+
 	// Check email format
+	if (!validateEmail(userEmail)) {
+		errors = {
+			errors: [
+				{ message: "Please enter a valid email", location: "emailInput" },
+			],
+		};
 
-	// Check user already exists
+		return res.json(errors);
+	}
 
-	// Turn password
+	if (!validateLogiSenseEmail(userEmail)) {
+		errors = {
+			errors: [
+				{ message: "Please enter a LogiSense email!", location: "emailInput" },
+			],
+		};
 
-	const newAdmin = new User();
+		return res.json(errors);
+	}
+
+	// Check if user already exists
+	const foundUser = await connection
+		.getRepository(User)
+		.createQueryBuilder("user")
+		.where("user.userEmail = :userEmail", { userEmail })
+		.getOne();
+
+	if (foundUser) {
+		errors = {
+			errors: [
+				{
+					message: "An account with this email already exists",
+					location: "emailInput",
+				},
+			],
+		};
+
+		return res.json(errors);
+	}
+
+	// Encrypt password
+	const salt = await bcrypt.genSalt(10);
+	const hashedPassword = await bcrypt.hash(userPassword, salt);
+
+	// Save user
+	const newAdmin: User = new User();
 	newAdmin.userEmail = userEmail;
-	newAdmin.userPassword = userPassword;
+	newAdmin.userPassword = hashedPassword;
 	newAdmin.userProject = null;
 	newAdmin.userType = "ADMIN";
 	await connection.manager.save(newAdmin);
 
-	res.send("succcess");
+	res.json(newAdmin);
 };

@@ -4,3 +4,12 @@ import { Request } from "express";
 export interface CustomRequest<T> extends Request {
 	body: T;
 }
+
+export interface Error {
+	message: string;
+	location: string;
+}
+
+export interface Errors {
+	errors: Error[];
+}
