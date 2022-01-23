@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import { User } from "../db/entity/User";
-import connection from "../db/connection";
+import { connection } from "../db/connection";
 
 const router = Router();
 
