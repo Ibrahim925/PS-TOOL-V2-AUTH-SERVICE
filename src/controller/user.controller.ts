@@ -13,10 +13,17 @@ export const create_user = async (
 	req: CustomRequest<CreateUserRequest>,
 	res: Response
 ): Promise<any> => {
-	await User.create({
-		userEmail: req.body.userEmail,
-		userPassword: req.body.userPassword,
-		userType: "ADMIN",
-		userProject: null,
-	});
+	// await User.create({
+	// 	userEmail: req.body.userEmail,
+	// 	userPassword: req.body.userPassword,
+	// 	userType: "ADMIN",
+	// 	userProject: null,
+	// });
+	const { userEmail, userPassword } = req.body;
+	const newAdmin = new User();
+	newAdmin.userEmail = userEmail;
+	newAdmin.userPassword = userPassword;
+	newAdmin.userProject = null;
+	newAdmin.userType = "ADMIN";
+	await connection.manager.save(newAdmin);
 };
