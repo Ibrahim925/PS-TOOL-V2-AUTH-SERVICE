@@ -1,10 +1,10 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, Connection } from "typeorm";
 import "dotenv/config";
 
+let connection: Connection;
 const connect = async () => {
 	createConnection({
-		name: "db connection",
 		type: "mysql",
 		host: "us-cdbr-east-05.cleardb.net",
 		port: 3306,
@@ -18,7 +18,14 @@ const connect = async () => {
 			migrationsDir: "src/db/migration",
 			subscribersDir: "src/db/subscriber",
 		},
-	});
+	})
+		.then((returnedConnection: Connection) => {
+			connection = returnedConnection;
+		})
+		.catch((error) => {
+			console.log("____________________________ERROR:", error);
+		});
 };
 
 connect();
+export default connection;
