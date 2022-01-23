@@ -3,17 +3,23 @@ import { connection } from "../db/connection";
 import { Response } from "express";
 import { CustomRequest } from "../types";
 
-interface CreateUserRequest {
+interface CreateAdminRequest {
 	userEmail: string;
 	userPassword: string;
 }
 
 // Used by POST /user/
-export const create_user = async (
-	req: CustomRequest<CreateUserRequest>,
+export const create_admin = async (
+	req: CustomRequest<CreateAdminRequest>,
 	res: Response
 ): Promise<any> => {
 	const { userEmail, userPassword } = req.body;
+
+	// Check email format
+
+	// Check user already exists
+
+	// Turn password
 
 	const newAdmin = new User();
 	newAdmin.userEmail = userEmail;
