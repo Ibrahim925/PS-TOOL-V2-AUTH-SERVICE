@@ -6,11 +6,11 @@ let connection: Connection;
 const connect = async () => {
 	createConnection({
 		type: "mysql",
-		host: process.env.dbHost,
+		host: "us-cdbr-east-05.cleardb.net",
 		port: 3306,
-		username: process.env.dbUserName,
-		password: process.env.dbPassword,
-		database: process.env.dbName,
+		username: "bfc871697a0584",
+		password: "89b32f18",
+		database: "heroku_b510b87812e7040",
 		synchronize: true,
 		entities: ["src/db/entity/**/*.ts"],
 		cli: {
