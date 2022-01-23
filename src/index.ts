@@ -2,6 +2,7 @@ import * as express from "express";
 import * as cors from "cors";
 import connection from "./db/connection";
 import { User } from "./db/entity/User";
+import "dotenv/config";
 
 const app = express();
 

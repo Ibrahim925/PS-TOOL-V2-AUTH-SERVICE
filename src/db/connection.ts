@@ -1,15 +1,16 @@
 import "reflect-metadata";
 import { createConnection, Connection } from "typeorm";
+import "dotenv/config";
 
 let connection: Connection;
 const connect = async () => {
 	createConnection({
 		type: "mysql",
-		host: "us-cdbr-east-05.cleardb.net",
+		host: process.env.dbHost,
 		port: 3306,
-		username: "bfc871697a0584",
-		password: "89b32f18",
-		database: "heroku_b510b87812e7040",
+		username: process.env.dbUserName,
+		password: process.env.dbPassword,
+		database: process.env.dbName,
 		synchronize: true,
 		entities: ["src/db/entity/**/*.ts"],
 		cli: {
