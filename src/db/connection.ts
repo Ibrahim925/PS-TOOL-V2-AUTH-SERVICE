@@ -1,8 +1,7 @@
 import "reflect-metadata";
-import { createConnection, Connection } from "typeorm";
+import { createConnection } from "typeorm";
 import "dotenv/config";
 
-let connection: Connection;
 const connect = async () => {
 	createConnection({
 		type: "mysql",
@@ -18,10 +17,7 @@ const connect = async () => {
 			migrationsDir: "src/db/migration",
 			subscribersDir: "src/db/subscriber",
 		},
-	}).then((returnedConnection: Connection) => {
-		connection = returnedConnection;
 	});
 };
 
 connect();
-export default connection;
