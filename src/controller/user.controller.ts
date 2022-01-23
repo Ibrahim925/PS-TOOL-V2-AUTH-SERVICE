@@ -8,10 +8,11 @@ interface CreateUserRequest {
 	userPassword: string;
 }
 
+// Used by POST /user/
 export const create_user = async (
 	req: CustomRequest<CreateUserRequest>,
 	res: Response
 ): Promise<any> => {
-	console.log(req.body.userEmail, req.body.userPassword);
+	console.log(typeof req.body.userEmail);
 	res.json("SUCCESS");
 };
