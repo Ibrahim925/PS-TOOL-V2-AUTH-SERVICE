@@ -4,6 +4,7 @@ import "dotenv/config";
 
 const connect = async () => {
 	createConnection({
+		name: "db connection",
 		type: "mysql",
 		host: "us-cdbr-east-05.cleardb.net",
 		port: 3306,

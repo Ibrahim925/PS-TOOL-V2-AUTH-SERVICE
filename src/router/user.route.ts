@@ -4,7 +4,7 @@ import { getConnection } from "typeorm";
 
 const router = Router();
 
-const connection = getConnection();
+const connection = getConnection("db connection");
 
 router.get("/", async (req: Request, res: Response) => {
 	const user = new User();
