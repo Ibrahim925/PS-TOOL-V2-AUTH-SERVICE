@@ -13,6 +13,10 @@ export const create_user = async (
 	req: CustomRequest<CreateUserRequest>,
 	res: Response
 ): Promise<any> => {
-	console.log(typeof req.body.userEmail);
-	res.json("SUCCESS");
+	await User.create({
+		userEmail: req.body.userEmail,
+		userPassword: req.body.userPassword,
+		userType: "ADMIN",
+		userProject: null,
+	});
 };
