@@ -20,6 +20,7 @@ createConnection({
 })
 	.then((returnedConnection: Connection) => {
 		connection = returnedConnection;
+		console.log(returnedConnection);
 	})
 	.catch((error) => {
 		console.log("____________________________ERROR:", error);
