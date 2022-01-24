@@ -7,7 +7,7 @@ import {
 	validateLogiSenseEmail,
 } from "../helpers/emailValidation";
 import * as bcrypt from "bcryptjs";
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import * as nodemailer from "nodemailer";
 import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
 import "dotenv/config";
