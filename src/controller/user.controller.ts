@@ -33,48 +33,48 @@ export const create_admin = async (
 ): Promise<any> => {
 	const { userEmail } = req.body;
 
-	// let errors: Errors;
+	let errors: Errors;
 
-	// // Check email format
-	// if (!validateEmail(userEmail)) {
-	// 	errors = {
-	// 		errors: [
-	// 			{ message: "Please enter a valid email", location: "emailInput" },
-	// 		],
-	// 	};
+	// Check email format
+	if (!validateEmail(userEmail)) {
+		errors = {
+			errors: [
+				{ message: "Please enter a valid email", location: "emailInput" },
+			],
+		};
 
-	// 	return res.json(errors);
-	// }
+		return res.json(errors);
+	}
 
-	// if (!validateLogiSenseEmail(userEmail)) {
-	// 	errors = {
-	// 		errors: [
-	// 			{ message: "Please enter a LogiSense email!", location: "emailInput" },
-	// 		],
-	// 	};
+	if (!validateLogiSenseEmail(userEmail)) {
+		errors = {
+			errors: [
+				{ message: "Please enter a LogiSense email!", location: "emailInput" },
+			],
+		};
 
-	// 	return res.json(errors);
-	// }
+		return res.json(errors);
+	}
 
-	// // Check if user already exists
-	// const foundUser = await connection
-	// 	.getRepository(User)
-	// 	.createQueryBuilder("user")
-	// 	.where("user.userEmail = :userEmail", { userEmail })
-	// 	.getOne();
+	// Check if user already exists
+	const foundUser = await connection
+		.getRepository(User)
+		.createQueryBuilder("user")
+		.where("user.userEmail = :userEmail", { userEmail })
+		.getOne();
 
-	// if (foundUser) {
-	// 	errors = {
-	// 		errors: [
-	// 			{
-	// 				message: "An account with this email already exists",
-	// 				location: "emailInput",
-	// 			},
-	// 		],
-	// 	};
+	if (foundUser) {
+		errors = {
+			errors: [
+				{
+					message: "An account with this email already exists",
+					location: "emailInput",
+				},
+			],
+		};
 
-	// 	return res.json(errors);
-	// }
+		return res.json(errors);
+	}
 
 	// Encrypt password
 	const userPassword: string = uuid();
