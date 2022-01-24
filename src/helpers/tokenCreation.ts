@@ -6,3 +6,9 @@ export const createRefreshToken = (id: number) => {
 
 	return token;
 };
+
+export const createAccessToken = (id: number) => {
+	const token = jwt.sign({ id }, process.env.ACCESS_TOKEN_SECRET);
+
+	return token;
+};

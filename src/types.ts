@@ -8,7 +8,7 @@ export interface CustomRequest<T> extends Request {
 // Errors sent to user
 export interface Error {
 	message: string;
-	location: string;
+	location?: string;
 }
 
 export interface Errors {
