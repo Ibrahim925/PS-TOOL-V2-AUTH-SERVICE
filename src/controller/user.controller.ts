@@ -12,8 +12,7 @@ import * as nodemailer from "nodemailer";
 import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
 import "dotenv/config";
 
-console.log(process.env.email);
-
+// Initialize SMTP transporter with nodemailer
 const transporter: nodemailer.Transporter<SentMessageInfo> =
 	nodemailer.createTransport({
 		service: "gmail",
@@ -23,59 +22,59 @@ const transporter: nodemailer.Transporter<SentMessageInfo> =
 		},
 	});
 
+// Used by POST /user/
 interface CreateAdminRequest {
 	userEmail: string;
 }
 
-// Used by POST /user/
 export const create_admin = async (
 	req: CustomRequest<CreateAdminRequest>,
 	res: Response
 ): Promise<any> => {
 	const { userEmail } = req.body;
 
-	let errors: Errors;
+	// let errors: Errors;
 
-	// Check email format
-	if (!validateEmail(userEmail)) {
-		errors = {
-			errors: [
-				{ message: "Please enter a valid email", location: "emailInput" },
-			],
-		};
+	// // Check email format
+	// if (!validateEmail(userEmail)) {
+	// 	errors = {
+	// 		errors: [
+	// 			{ message: "Please enter a valid email", location: "emailInput" },
+	// 		],
+	// 	};
 
-		return res.json(errors);
-	}
+	// 	return res.json(errors);
+	// }
 
-	if (!validateLogiSenseEmail(userEmail)) {
-		errors = {
-			errors: [
-				{ message: "Please enter a LogiSense email!", location: "emailInput" },
-			],
-		};
+	// if (!validateLogiSenseEmail(userEmail)) {
+	// 	errors = {
+	// 		errors: [
+	// 			{ message: "Please enter a LogiSense email!", location: "emailInput" },
+	// 		],
+	// 	};
 
-		return res.json(errors);
-	}
+	// 	return res.json(errors);
+	// }
 
-	// Check if user already exists
-	const foundUser = await connection
-		.getRepository(User)
-		.createQueryBuilder("user")
-		.where("user.userEmail = :userEmail", { userEmail })
-		.getOne();
+	// // Check if user already exists
+	// const foundUser = await connection
+	// 	.getRepository(User)
+	// 	.createQueryBuilder("user")
+	// 	.where("user.userEmail = :userEmail", { userEmail })
+	// 	.getOne();
 
-	if (foundUser) {
-		errors = {
-			errors: [
-				{
-					message: "An account with this email already exists",
-					location: "emailInput",
-				},
-			],
-		};
+	// if (foundUser) {
+	// 	errors = {
+	// 		errors: [
+	// 			{
+	// 				message: "An account with this email already exists",
+	// 				location: "emailInput",
+	// 			},
+	// 		],
+	// 	};
 
-		return res.json(errors);
-	}
+	// 	return res.json(errors);
+	// }
 
 	// Encrypt password
 	const userPassword: string = uuid();
@@ -98,4 +97,17 @@ export const create_admin = async (
 	});
 
 	res.send("Admin Successfully Created");
+};
+
+// Used by GET /user/
+interface SignInUserRequest {
+	userEmail: string;
+	userPassword: string;
+}
+
+export const user_sign_in = async (
+	req: CustomRequest<SignInUserRequest>,
+	res: Response
+) => {
+	// TODO: IMPLEMENT USER SIGN IN FUNCTIONALITY
 };
