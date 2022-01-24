@@ -12,6 +12,8 @@ import * as nodemailer from "nodemailer";
 import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
 import "dotenv/config";
 
+console.log(process.env.email);
+
 const transporter: nodemailer.Transporter<SentMessageInfo> =
 	nodemailer.createTransport({
 		service: "gmail",
