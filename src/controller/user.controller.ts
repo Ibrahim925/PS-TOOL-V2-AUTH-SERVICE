@@ -171,5 +171,9 @@ export const user_sign_in = async (
 	// CREATE REFRESH TOKEN
 	const refreshToken = createRefreshToken(foundUser.id);
 
+	const newToken = new Token();
+	newToken.token = refreshToken;
+	await connection.manager.save(newToken);
+
 	res.json({ refreshToken });
 };
