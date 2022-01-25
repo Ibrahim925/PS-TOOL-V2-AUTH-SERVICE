@@ -34,9 +34,7 @@ const authenticateRefreshToken = (
 
 			if (!refreshToken) {
 				res.status(401);
-				errors = {
-					errors: [{ message: "EXPIRED REFRESH TOKEN" }],
-				};
+				errors = [{ message: "EXPIRED REFRESH TOKEN" }];
 				return res.json(errors);
 			}
 

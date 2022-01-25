@@ -11,6 +11,4 @@ export interface Error {
 	location?: string;
 }
 
-export interface Errors {
-	errors: Error[];
-}
+export type Errors = Error[];

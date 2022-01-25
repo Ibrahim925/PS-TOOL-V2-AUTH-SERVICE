@@ -39,21 +39,17 @@ export const create_admin = async (
 
 	// Check email format
 	if (!validateEmail(userEmail)) {
-		errors = {
-			errors: [
-				{ message: "Please enter a valid email", location: "emailInput" },
-			],
-		};
+		errors = [
+			{ message: "Please enter a valid email", location: "emailInput" },
+		];
 
 		return res.json(errors);
 	}
 
 	if (!validateLogiSenseEmail(userEmail)) {
-		errors = {
-			errors: [
-				{ message: "Please enter a LogiSense email!", location: "emailInput" },
-			],
-		};
+		errors = [
+			{ message: "Please enter a LogiSense email!", location: "emailInput" },
+		];
 
 		return res.json(errors);
 	}
@@ -66,14 +62,12 @@ export const create_admin = async (
 		.getOne();
 
 	if (foundUser) {
-		errors = {
-			errors: [
-				{
-					message: "An account with this email already exists",
-					location: "emailInput",
-				},
-			],
-		};
+		errors = [
+			{
+				message: "An account with this email already exists",
+				location: "emailInput",
+			},
+		];
 
 		return res.json(errors);
 	}
@@ -117,14 +111,12 @@ export const user_sign_in = async (
 
 	// Check if userEmail is a valid email
 	if (!validateEmail(userEmail)) {
-		errors = {
-			errors: [
-				{
-					message: "Please enter a valid email",
-					location: "emailInput",
-				},
-			],
-		};
+		errors = [
+			{
+				message: "Please enter a valid email",
+				location: "emailInput",
+			},
+		];
 
 		return res.json(errors);
 	}
@@ -137,14 +129,12 @@ export const user_sign_in = async (
 		.getOne();
 
 	if (!foundUser) {
-		errors = {
-			errors: [
-				{
-					message: "An account with this email does not exist",
-					location: "emailInput",
-				},
-			],
-		};
+		errors = [
+			{
+				message: "An account with this email does not exist",
+				location: "emailInput",
+			},
+		];
 
 		return res.json(errors);
 	}
@@ -156,14 +146,12 @@ export const user_sign_in = async (
 	);
 
 	if (!isPasswordValid) {
-		errors = {
-			errors: [
-				{
-					message: "Password is incorrect",
-					location: "passwordInput",
-				},
-			],
-		};
+		errors = [
+			{
+				message: "Password is incorrect",
+				location: "passwordInput",
+			},
+		];
 
 		return res.json(errors);
 	}
