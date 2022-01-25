@@ -12,3 +12,8 @@ export interface Error {
 }
 
 export type Errors = Error[];
+
+// Success message
+export enum SuccessMessage {
+	Success = "SUCCESS",
+}

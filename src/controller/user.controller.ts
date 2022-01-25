@@ -3,6 +3,7 @@ import { Token } from "../db/entity/Token";
 import { connection } from "../db/connection";
 import { Response } from "express";
 import { CustomRequest, Errors } from "../types";
+import { SuccessMessage } from "../types";
 import {
 	validateEmail,
 	validateLogiSenseEmail,
@@ -92,7 +93,7 @@ export const create_admin = async (
 		text: `An account was created with this email. Your password is ${userPassword}`,
 	});
 
-	res.send("Admin Successfully Created");
+	res.send(SuccessMessage.Success);
 };
 
 // Used by GET /user/
