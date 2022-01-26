@@ -26,12 +26,12 @@ const transporter: nodemailer.Transporter<SentMessageInfo> =
 	});
 
 // Used by POST /user/
-interface CreateAdminRequest {
+interface CreateAdminRequestBody {
 	userEmail: string;
 }
 
 export const create_admin = async (
-	req: CustomRequest<CreateAdminRequest>,
+	req: CustomRequest<{}, CreateAdminRequestBody, {}>,
 	res: Response
 ): Promise<any> => {
 	const { userEmail } = req.body;
@@ -106,13 +106,13 @@ export const create_admin = async (
 };
 
 // Used by POST /user/token
-interface SignInUserRequest {
+interface SignInUserRequestBody {
 	userEmail: string;
 	userPassword: string;
 }
 
 export const user_sign_in = async (
-	req: CustomRequest<SignInUserRequest>,
+	req: CustomRequest<{}, SignInUserRequestBody, {}>,
 	res: Response
 ) => {
 	const { userEmail, userPassword } = req.body;

@@ -7,7 +7,7 @@ import { Errors } from "../types";
 import { connection } from "../db/connection";
 
 const authenticateRefreshToken = (
-	req: CustomRequest<{ id: number }>,
+	req: CustomRequest<{}, {}, {}>,
 	res: Response,
 	next
 ) => {
@@ -38,7 +38,7 @@ const authenticateRefreshToken = (
 				return res.json(errors);
 			}
 
-			req.body.id = data.id;
+			req.id = data.id;
 			next();
 		}
 	);
