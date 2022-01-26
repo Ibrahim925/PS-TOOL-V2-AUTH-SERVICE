@@ -36,33 +36,33 @@ export const create_admin = async (
 ): Promise<any> => {
 	const { userEmail } = req.body;
 
-	let errors: Errors;
+	let errors: Errors = [];
 
 	// Check that the user's actually inputted data
 	if (!userEmail) {
-		errors = [
-			{
-				message: "Please enter your email",
-				location: "emailInput",
-			},
-		];
+		errors.push({
+			message: "Please enter your email",
+			location: "emailInput",
+		});
 
 		return res.json(errors);
 	}
 
 	// Check email format
 	if (!validateEmail(userEmail)) {
-		errors = [
-			{ message: "Please enter a valid email", location: "emailInput" },
-		];
+		errors.push({
+			message: "Please enter a valid email",
+			location: "emailInput",
+		});
 
 		return res.json(errors);
 	}
 
 	if (!validateLogiSenseEmail(userEmail)) {
-		errors = [
-			{ message: "Please enter a LogiSense email!", location: "emailInput" },
-		];
+		errors.push({
+			message: "Please enter a LogiSense email!",
+			location: "emailInput",
+		});
 
 		return res.json(errors);
 	}
@@ -75,13 +75,10 @@ export const create_admin = async (
 		.getOne();
 
 	if (foundUser) {
-		errors = [
-			{
-				message: "An account with this email already exists",
-				location: "emailInput",
-			},
-		];
-
+		errors.push({
+			message: "An account with this email already exists",
+			location: "emailInput",
+		});
 		return res.json(errors);
 	}
 
@@ -120,26 +117,30 @@ export const user_sign_in = async (
 ) => {
 	const { userEmail, userPassword } = req.body;
 
-	let errors: Errors;
+	let errors: Errors = [];
 
 	// Check that the data has been inputted
-	if (!userEmail || !userPassword) {
-		errors = [
-			{ message: "Please enter your email", location: "emailInput" },
-			{ message: "Please enter your password", location: "passwordInput" },
-		];
+	if (!userEmail) {
+		errors.push({ message: "Please enter your email", location: "emailInput" });
+	}
 
+	if (!userPassword) {
+		errors.push({
+			message: "Please enter your password",
+			location: "passwordInput",
+		});
+	}
+
+	if (errors.length) {
 		return res.json(errors);
 	}
 
 	// Check if userEmail is a valid email
 	if (!validateEmail(userEmail)) {
-		errors = [
-			{
-				message: "Please enter a valid email",
-				location: "emailInput",
-			},
-		];
+		errors.push({
+			message: "Please enter a valid email",
+			location: "emailInput",
+		});
 
 		return res.json(errors);
 	}
@@ -152,12 +153,10 @@ export const user_sign_in = async (
 		.getOne();
 
 	if (!foundUser) {
-		errors = [
-			{
-				message: "An account with this email does not exist",
-				location: "emailInput",
-			},
-		];
+		errors.push({
+			message: "An account with this email does not exist",
+			location: "emailInput",
+		});
 
 		return res.json(errors);
 	}
@@ -169,12 +168,10 @@ export const user_sign_in = async (
 	);
 
 	if (!isPasswordValid) {
-		errors = [
-			{
-				message: "Password is incorrect",
-				location: "passwordInput",
-			},
-		];
+		errors.push({
+			message: "Password is incorrect",
+			location: "passwordInput",
+		});
 
 		return res.json(errors);
 	}

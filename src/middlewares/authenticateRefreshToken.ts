@@ -13,7 +13,7 @@ const authenticateRefreshToken = (
 ) => {
 	const authHeader: string = req.headers["authorization"];
 	const token = authHeader.split(" ")[1];
-	let errors: Errors;
+	let errors: Errors = [];
 
 	console.log("AUTH HEADER TOKEN: ", token);
 
@@ -34,7 +34,7 @@ const authenticateRefreshToken = (
 
 			if (!refreshToken) {
 				res.status(401);
-				errors = [{ message: "EXPIRED REFRESH TOKEN" }];
+				errors.push({ message: "EXPIRED REFRESH TOKEN" });
 				return res.json(errors);
 			}
 
