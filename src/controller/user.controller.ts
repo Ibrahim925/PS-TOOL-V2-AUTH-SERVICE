@@ -38,6 +38,18 @@ export const create_admin = async (
 
 	let errors: Errors;
 
+	// Check that the user's actually inputted data
+	if (!userEmail) {
+		errors = [
+			{
+				message: "Please enter your email",
+				location: "emailInput",
+			},
+		];
+
+		return res.json(errors);
+	}
+
 	// Check email format
 	if (!validateEmail(userEmail)) {
 		errors = [
@@ -109,6 +121,14 @@ export const user_sign_in = async (
 	const { userEmail, userPassword } = req.body;
 
 	let errors: Errors;
+
+	// Check that the data has been inputted
+	if (!userEmail || !userPassword) {
+		errors = [
+			{ message: "Please enter your email", location: "emailInput" },
+			{ message: "Please enter your password", location: "passwordInput" },
+		];
+	}
 
 	// Check if userEmail is a valid email
 	if (!validateEmail(userEmail)) {
