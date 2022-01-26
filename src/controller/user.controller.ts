@@ -108,7 +108,7 @@ export const create_admin = async (
 	res.send(SuccessMessage.Success);
 };
 
-// Used by GET /user/
+// Used by POST /user/token
 interface SignInUserRequest {
 	userEmail: string;
 	userPassword: string;
@@ -128,6 +128,8 @@ export const user_sign_in = async (
 			{ message: "Please enter your email", location: "emailInput" },
 			{ message: "Please enter your password", location: "passwordInput" },
 		];
+
+		return res.json(errors);
 	}
 
 	// Check if userEmail is a valid email
