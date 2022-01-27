@@ -6,7 +6,7 @@ export const create_access_token = async (
 	req: CustomRequest<{}, { id: number }, {}>,
 	res: Response
 ) => {
-	const { id } = req.body;
+	const { id } = req;
 
 	console.log(id, "IDIDIDIDIDIDIDIDI");
 
