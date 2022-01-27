@@ -39,7 +39,6 @@ const authenticateRefreshToken = (
 			}
 
 			req.id = data.id;
-			console.log(data, "FHDFJDSFJDSJFKLSDJFKLSDJFKLSDFJKLSDFJKLSDFJ");
 			next();
 		}
 	);
