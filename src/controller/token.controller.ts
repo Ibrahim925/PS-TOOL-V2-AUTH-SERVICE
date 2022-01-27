@@ -8,6 +8,8 @@ export const create_access_token = async (
 ) => {
 	const { id } = req.body;
 
+	console.log(id, "IDIDIDIDIDIDIDIDI");
+
 	const accessToken = createAccessToken(id);
 
 	res.json({ accessToken });
