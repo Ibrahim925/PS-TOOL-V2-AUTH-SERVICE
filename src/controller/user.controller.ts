@@ -12,8 +12,8 @@ import * as bcrypt from "bcryptjs";
 import { v4 as uuid } from "uuid";
 import * as nodemailer from "nodemailer";
 import { SentMessageInfo } from "nodemailer/lib/smtp-transport";
-import "dotenv/config";
 import { createRefreshToken } from "../helpers/tokenCreation";
+import "dotenv/config";
 
 // Initialize SMTP transporter with nodemailer
 const transporter: nodemailer.Transporter<SentMessageInfo> =
