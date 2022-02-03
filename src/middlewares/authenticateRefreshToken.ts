@@ -32,7 +32,7 @@ const authenticateRefreshToken = (
 				.getOne();
 
 			if (!refreshToken) {
-				return res.status(401);
+				return res.sendStatus(401);
 			}
 
 			req.id = data.id;
