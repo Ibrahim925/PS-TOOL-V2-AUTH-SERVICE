@@ -3,7 +3,6 @@ import * as jwt from "jsonwebtoken";
 import "dotenv";
 import { CustomRequest } from "../types";
 import { Token } from "../db/entity/Token";
-import { Errors } from "../types";
 import { connection } from "../db/connection";
 
 const authenticateRefreshToken = (
@@ -14,7 +13,6 @@ const authenticateRefreshToken = (
 	const authHeader: string = req.headers["authorization"];
 	if (!authHeader) return res.sendStatus(401);
 	const token = authHeader.split(" ")[1];
-	let errors: Errors = [];
 
 	console.log("AUTH HEADER TOKEN: ", token);
 
@@ -34,9 +32,7 @@ const authenticateRefreshToken = (
 				.getOne();
 
 			if (!refreshToken) {
-				res.status(401);
-				errors.push({ message: "EXPIRED REFRESH TOKEN" });
-				return res.json(errors);
+				return res.status(401);
 			}
 
 			req.id = data.id;
