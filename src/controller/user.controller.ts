@@ -185,3 +185,50 @@ export const user_sign_in = async (
 
 	res.json({ refreshToken });
 };
+
+// Update user password
+interface UpdateUserPasswordBody {
+	userEmail: string;
+	currentPassword: string;
+	newPassword: string;
+}
+
+export const update_user_password = async (
+	req: CustomRequest<{}, UpdateUserPasswordBody, {}>,
+	res: Response
+) => {
+	const { userEmail, currentPassword, newPassword } = req.body;
+
+	const errors: Errors = [];
+
+	// Make sure that the password is valid
+	const [foundUser] = await connection.getRepository(User).find({
+		take: 1,
+		where: {
+			userEmail,
+		},
+	});
+
+	const isPasswordValid = await bcrypt.compare(
+		currentPassword,
+		foundUser.userPassword
+	);
+
+	if (!isPasswordValid) {
+		errors.push({
+			message: "Incorrect Password",
+			location: "currentPasswordInput",
+		});
+		return res.json(errors);
+	}
+
+	// Encrypt new password
+	const salt = await bcrypt.genSalt(10);
+	const encryptedPassword = await bcrypt.hash(newPassword, salt);
+
+	await connection
+		.getRepository(User)
+		.update({ userEmail }, { userPassword: encryptedPassword });
+
+	return res.json("Success");
+};
