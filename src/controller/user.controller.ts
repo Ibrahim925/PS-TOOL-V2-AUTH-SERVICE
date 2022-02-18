@@ -201,6 +201,26 @@ export const update_user_password = async (
 
 	const errors: Errors = [];
 
+	// Make sure passwords are present
+	if (!currentPassword) {
+		errors.push({
+			message: "Please enter your current password",
+			location: "currentPasswordInput",
+		});
+	}
+
+	if (!newPassword) {
+		errors.push({
+			message: "Please enter your new password",
+			location: "newPasswordInput",
+		});
+	}
+
+	if (errors.length) {
+		res.json(errors);
+		return;
+	}
+
 	// Make sure that the password is valid
 	const [foundUser] = await connection.getRepository(User).find({
 		take: 1,
