@@ -4,7 +4,7 @@ import {
 	update_user_password,
 	user_sign_in,
 } from "../controller/user.controller";
-import authenticateRefreshToken from "../middlewares/authenticateRefreshToken";
+import authenticateAccessToken from "../middlewares/authenticateAccessToken";
 
 const router: Router = Router();
 
@@ -15,6 +15,6 @@ router.post("/", create_admin);
 router.post("/token", user_sign_in);
 
 // Change user password
-router.put("/", authenticateRefreshToken, update_user_password);
+router.put("/", authenticateAccessToken, update_user_password);
 
 export default router;
