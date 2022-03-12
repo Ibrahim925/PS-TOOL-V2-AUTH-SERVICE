@@ -31,11 +31,11 @@ const authenticateRefreshToken = (
 				.findOne({ where: { token, userId: data.id } });
 
 			// Check if user with specific refresh token exists in database
-			const user = await connection
-				.getRepository(User)
-				.findOne({ where: { id: data.id } });
+			// const user = await connection
+			// 	.getRepository(User)
+			// 	.findOne({ where: { id: data.id } });
 
-			if (!refreshToken || !user) {
+			if (!refreshToken) {
 				return res.sendStatus(401);
 			}
 
