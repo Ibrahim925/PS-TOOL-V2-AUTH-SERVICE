@@ -70,9 +70,7 @@ export const create_admin = async (
 	// Check if user already exists
 	const foundUser = await connection
 		.getRepository(User)
-		.createQueryBuilder("user")
-		.where("user.userEmail = :userEmail", { userEmail })
-		.getOne();
+		.findOne({ where: { userEmail } });
 
 	if (foundUser) {
 		errors.push({
@@ -146,11 +144,11 @@ export const user_sign_in = async (
 	}
 
 	// Look for user in database
-	const foundUser: User = await connection
-		.getRepository(User)
-		.createQueryBuilder("user")
-		.where("user.userEmail = :userEmail", { userEmail })
-		.getOne();
+	const foundUser = await connection.getRepository(User).findOne({
+		where: {
+			userEmail,
+		},
+	});
 
 	if (!foundUser) {
 		errors.push({
@@ -222,8 +220,7 @@ export const update_user_password = async (
 	}
 
 	// Make sure that the password is valid
-	const [foundUser] = await connection.getRepository(User).find({
-		take: 1,
+	const foundUser = await connection.getRepository(User).findOne({
 		where: {
 			userEmail,
 		},

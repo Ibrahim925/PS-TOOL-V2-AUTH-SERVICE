@@ -27,9 +27,7 @@ const authenticateRefreshToken = (
 			// Check if refresh token is in token table
 			const refreshToken = await connection
 				.getRepository(Token)
-				.createQueryBuilder("token")
-				.where("token.token = :token", { token })
-				.getOne();
+				.findOne({ where: { token } });
 
 			if (!refreshToken) {
 				return res.sendStatus(401);
