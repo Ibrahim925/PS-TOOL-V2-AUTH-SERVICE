@@ -35,7 +35,7 @@ const authenticateRefreshToken = (
 				.getRepository(User)
 				.findOne({ where: { id: data.id } });
 
-			if (!refreshToken) {
+			if (!refreshToken || !user) {
 				return res.sendStatus(401);
 			}
 
