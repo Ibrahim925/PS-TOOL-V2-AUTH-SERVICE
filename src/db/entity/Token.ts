@@ -13,6 +13,9 @@ export class Token extends BaseEntity {
 	id: number;
 
 	@Column()
+	userId: number;
+
+	@Column()
 	token: string;
 
 	@CreateDateColumn()

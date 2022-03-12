@@ -4,6 +4,7 @@ import "dotenv";
 import { CustomRequest } from "../types";
 import { Token } from "../db/entity/Token";
 import { connection } from "../db/connection";
+import { User } from "../db/entity/User";
 
 const authenticateRefreshToken = (
 	req: CustomRequest<{}, {}, {}>,
@@ -27,9 +28,14 @@ const authenticateRefreshToken = (
 			// Check if refresh token is in token table
 			const refreshToken = await connection
 				.getRepository(Token)
-				.findOne({ where: { token } });
+				.findOne({ where: { token, userId: data.id } });
 
-			if (!refreshToken) {
+			// Check if user with specific refresh token exists in database
+			const user = await connection
+				.getRepository(User)
+				.findOne({ where: { id: data.id } });
+
+			if (!refreshToken || !user) {
 				return res.sendStatus(401);
 			}
 
