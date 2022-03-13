@@ -68,9 +68,7 @@ export const create_admin = async (
 	}
 
 	// Check if user already exists
-	const foundUser = await connection
-		.getRepository(User)
-		.findOne({ where: { userEmail } });
+	const foundUser = await User.findOne({ where: { userEmail } });
 
 	if (foundUser) {
 		errors.push({
@@ -143,7 +141,7 @@ export const user_sign_in = async (
 	}
 
 	// Look for user in database
-	const foundUser = await connection.getRepository(User).findOne({
+	const foundUser = await User.findOne({
 		where: {
 			userEmail,
 		},
@@ -220,7 +218,7 @@ export const update_user_password = async (
 	}
 
 	// Make sure that the password is valid
-	const foundUser = await connection.getRepository(User).findOne({
+	const foundUser = await User.findOne({
 		where: {
 			userEmail,
 		},
@@ -243,9 +241,7 @@ export const update_user_password = async (
 	const salt = await bcrypt.genSalt(10);
 	const encryptedPassword = await bcrypt.hash(newPassword, salt);
 
-	await connection
-		.getRepository(User)
-		.update({ userEmail }, { userPassword: encryptedPassword });
+	await User.update({ userEmail }, { userPassword: encryptedPassword });
 
 	return res.json("Success");
 };
