@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as cors from "cors";
+import express from "express";
+import cors from "cors";
 import userRouter from "./router/user.route";
 import tokenRouter from "./router/token.route";
 import "dotenv/config";
