@@ -3,7 +3,6 @@ import * as jwt from "jsonwebtoken";
 import "dotenv";
 import { CustomRequest } from "../types";
 import { Token } from "../db/entity/Token";
-import { connection } from "../db/connection";
 import { User } from "../db/entity/User";
 
 const authenticateRefreshToken = (
