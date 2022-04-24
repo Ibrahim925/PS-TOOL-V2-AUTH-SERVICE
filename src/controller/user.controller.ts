@@ -101,6 +101,8 @@ export const create_admin = async (
     res.send(SuccessMessage.Success);
   } catch (err) {
     console.error("ERROR WHILE CREATING ADMIN: " + err);
+
+	res.json(err);
   }
 };
 
