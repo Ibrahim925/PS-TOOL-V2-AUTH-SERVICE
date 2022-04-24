@@ -12,7 +12,7 @@ createConnection({
 	password: process.env.dbPassword,
 	database: process.env.dbName,
 	synchronize: true,
-	entities: ["src/db/entity/**/*.ts"],
+	entities: ["./entity/**/*.js"],
 	cli: {
 		entitiesDir: "src/db/entity",
 		migrationsDir: "src/db/migration",
