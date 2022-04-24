@@ -12,11 +12,11 @@ createConnection({
 	password: process.env.dbPassword,
 	database: process.env.dbName,
 	synchronize: true,
-	entities: ["./entity/**/*.js"],
+	entities: ["build/db/entity/**/*.js"],
 	cli: {
-		entitiesDir: "src/db/entity",
-		migrationsDir: "src/db/migration",
-		subscribersDir: "src/db/subscriber",
+		entitiesDir: "build/db/entity",
+		migrationsDir: "build/db/migration",
+		subscribersDir: "build/db/subscriber",
 	},
 }).then((returnedConnection: Connection) => {
 	connection = returnedConnection;
