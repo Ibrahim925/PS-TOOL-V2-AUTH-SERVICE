@@ -92,19 +92,11 @@ export const create_admin = async (
     newAdmin.userType = "ADMIN";
     await connection.manager.save(newAdmin);
 
-    try {
       await transporter.sendMail({
         to: userEmail,
         subject: "LogiSense Account Creation",
         text: `An account was created with this email. Your password is ${userPassword}`,
       });
-    } catch (err) {
-      await transporter.sendMail({
-        to: userEmail,
-        subject: "LogiSense Account Creation",
-        text: `An account was created with this email. Your password is ${userPassword}`,
-      });
-    }
 
     res.send(SuccessMessage.Success);
   } catch (err) {
