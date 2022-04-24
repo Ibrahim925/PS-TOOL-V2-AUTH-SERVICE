@@ -1,6 +1,7 @@
 {
 	"name": "ps-tool-v2-auth-service",
 	"version": "0.0.1",
+	"type": "module",
 	"description": "",
 	"engines": {
 		"node": "14.x"

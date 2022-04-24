@@ -5,7 +5,7 @@
 			"es6"
 		],
 		"target": "es5",
-		"module": "CommonJS",
+		"module": "esnext",
 		"moduleResolution": "node",
 		"rootDir": "src",
 		"outDir": "build",
